@@ -1,0 +1,189 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.vissights</groupId>
+  <artifactId>evalanalysis-webservice</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1</version>
+  <name>evalanalysis-webservice Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <dependency>
+		<groupId>org.apache.logging.log4j</groupId>
+		<artifactId>log4j-api</artifactId>
+		<version>2.8</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.logging.log4j</groupId>
+		<artifactId>log4j-core</artifactId>
+		<version>2.8</version>
+	</dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+		<groupId>io.swagger</groupId>
+		<artifactId>swagger-core</artifactId>
+		<version>1.5.16</version>
+		<exclusions>
+			<exclusion>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>jsr311-api</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>asm</groupId>
+		<artifactId>asm</artifactId>
+		<version>3.3.1</version>
+	</dependency>
+    <dependency>
+    	<groupId>javax.servlet</groupId>
+    	<artifactId>javax.servlet-api</artifactId>
+    	<version>4.0.0-b07</version>
+    </dependency>
+	<dependency>
+		<groupId>com.sun.jersey</groupId>
+		<artifactId>jersey-server</artifactId>
+		<version>1.19.4</version>
+	</dependency>
+	<dependency>
+		<groupId>com.sun.jersey</groupId>
+		<artifactId>jersey-bundle</artifactId>
+		<version>1.19.4</version>
+	</dependency>
+	<dependency>
+		<groupId>com.sun.jersey</groupId>
+		<artifactId>jersey-core</artifactId>
+		<version>1.19.4</version>
+	</dependency>
+	<dependency>
+	  <groupId>io.swagger</groupId>
+	  <artifactId>swagger-jersey-jaxrs</artifactId>
+	  <version>1.5.16</version>
+	</dependency>
+	<dependency>
+  		<groupId>com.googlecode.json-simple</groupId>
+  		<artifactId>json-simple</artifactId>
+  		<version>1.1</version>
+  	</dependency>
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-core</artifactId>
+		<version>2.9.0</version>
+	</dependency>
+  </dependencies>
+  <build>
+    <finalName>evalanalysis-webservice</finalName>
+    <plugins>
+   		<!-- Swagger Codegen Plugin -->
+    	<plugin>
+    		<groupId>com.github.kongchen</groupId>
+    		<artifactId>swagger-maven-plugin</artifactId>
+    		<version>3.1.5</version>
+    		<configuration>
+				<apiSources>
+					<apiSource>
+						<springmvc>false</springmvc>
+						<locations>
+                    		<location>com.vissights.processmining.webservice.rest</location>
+                		</locations>
+                		<schemes>
+		                    <scheme>http</scheme>
+        	        	</schemes>
+            	    	<!-- <host>www.[host]:[port]</host>  -->
+                		<basePath>/evalanalysis-webservice/v1</basePath>
+						<info>
+                   			<title>ProcessMining API Documentation</title>
+                    		<version>1.x</version>
+	                    	<!-- use markdown here because I'm using markdown for output,
+	                    		 if you need to use html or other markup language, you need to use your target language,
+	                     		 and note escape your description for xml -->
+	                    	<description>
+	                        	Process Mining for Assisted Visual Analytics
+		                    </description>
+	    	                <!-- <termsOfService>
+	        	                http://www.vissights.com/api-terms
+	            	        </termsOfService> -->
+	                	    <contact>
+	                    	    <email>dirk.burkhardt@semavis.com</email>
+	                        	<name>SemaVis</name>
+		                        <url>http://www.semavis.com</url>
+	    	                </contact>
+	        	            <license>
+	                	        <name>Proprietary (free for non-commercial use)</name>
+	                	        <!--  <url>http://www.vissights.com/api-terms</url> -->
+	                    	</license>
+                		</info>
+                		<outputFormats>json,yaml</outputFormats>
+						<templatePath>${basedir}/src/main/webapp/doc/swagger/template/strapdown.html.hbs</templatePath>
+						<outputPath>${basedir}/src/main/webapp/doc/api-json/index.html</outputPath>
+               			<swaggerDirectory>${basedir}/src/main/webapp/doc/api-json/</swaggerDirectory>
+               			<attachSwaggerArtifact>true</attachSwaggerArtifact>
+						<!-- <securityDefinitions>
+							<securityDefinition>
+								<json>/securityDefinition.json</json>
+							</securityDefinition>
+						</securityDefinitions> -->
+					</apiSource>
+				</apiSources>
+			</configuration>
+			<executions>
+		        <execution>
+		            <phase>compile</phase>
+		            <goals>
+		                <goal>generate</goal>
+		            </goals>
+		        </execution>
+    		</executions>
+    	</plugin>
+    	<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-compiler-plugin</artifactId>
+		  <version>3.6.1</version>
+		  <configuration>
+		    <source>1.8</source>
+		    <target>1.8</target>
+		  </configuration>
+		</plugin>
+    </plugins>
+    <pluginManagement>
+		<plugins>
+			<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+			<plugin>
+				<groupId>org.eclipse.m2e</groupId>
+				<artifactId>lifecycle-mapping</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<lifecycleMappingMetadata>
+						<pluginExecutions>
+							<pluginExecution>
+								<pluginExecutionFilter>
+									<groupId>
+										com.github.kongchen
+									</groupId>
+									<artifactId>
+										swagger-maven-plugin
+									</artifactId>
+									<versionRange>
+										[${swagger-maven-plugin-version},)
+									</versionRange>
+									<goals>
+										<goal>generate</goal>
+									</goals>
+								</pluginExecutionFilter>
+								<action>
+									<ignore></ignore>
+								</action>
+							</pluginExecution>
+						</pluginExecutions>
+					</lifecycleMappingMetadata>
+				</configuration>
+			</plugin>
+		</plugins>
+	</pluginManagement>
+  </build>
+</project>

@@ -1,0 +1,43 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+	<servlet-name>ProcessMiningAPI</servlet-name>
+	<display-name>ProcessMiningAPI</display-name>
+	<description></description>
+	<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+	<init-param>
+		<param-name>com.sun.jersey.config.property.packages</param-name>
+		<param-value>
+			io.swagger.jaxrs.json,
+			io.swagger.jaxrs.listing,
+			com.vissights.processmining.webservice.rest
+		</param-value>
+	</init-param>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+	<servlet-name>Jersey2Config</servlet-name>
+	<servlet-class>io.swagger.jaxrs.config.DefaultJaxrsConfig</servlet-class>
+	<init-param>
+	    <param-name>api.version</param-name>
+	    <param-value>1.x.x</param-value>
+	</init-param>
+	<init-param>
+	    <param-name>swagger.api.basepath</param-name>
+	    <param-value>http://localhost:8080/processmining-webservice/</param-value>
+	</init-param>
+	<load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>ProcessMiningAPI</servlet-name>
+	<url-pattern>/V1/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+	<servlet-name>ProcessMiningAPI</servlet-name>
+	<url-pattern>/v1/*</url-pattern>
+  </servlet-mapping>
+</web-app>

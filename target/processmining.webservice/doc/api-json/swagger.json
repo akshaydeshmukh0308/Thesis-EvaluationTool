@@ -1,0 +1,18 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Process Mining for Assisted Visual Analytics",
+    "version" : "1.x",
+    "title" : "ProcessMining API Documentation",
+    "contact" : {
+      "name" : "SemaVis",
+      "url" : "http://www.semavis.com",
+      "email" : "dirk.burkhardt@semavis.com"
+    },
+    "license" : {
+      "name" : "Proprietary (free for non-commercial use)"
+    }
+  },
+  "basePath" : "/processmining-webservice/v1",
+  "schemes" : [ "http" ]
+}

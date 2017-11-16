@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Properties>
+		<Property name="log-path">D:/Programme/Apache Software Foundation/Tomcat 7.0/logs</Property>
+		<Property name="log-file">SciticsDataService</Property>
+	</Properties>
+	
+	<Appenders>
+		<Console name="console-log" target="SYSTEM_OUT">
+			<PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36}#%M{1}:%L{1} - %msg%n"/>
+		</Console>
+		<RollingFile name="trace-log" fileName="${log-path}/${log-file}-trace.log"
+			filePattern="${log-path}/${log-file}-trace-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36}#%M{1}:%L{1} - %msg%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+		<RollingFile name="error-log" fileName="${log-path}/${log-file}-error.log"
+			filePattern="${log-path}/${log-file}-error-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36}#%M{1}:%L{1} - %msg%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	
+	<Loggers>
+		<Logger name="SemaService.log4j2" level="debug" additivity="false">
+			<AppenderRef  ref="trace-log" level="debug"/>
+			<AppenderRef  ref="error-log" level="warn"/>
+		</Logger>
+		<Root level="trace" additivity="false">
+			<AppenderRef  ref="console-log" level="trace"/>
+			<AppenderRef  ref="trace-log" level="off"/>
+			<AppenderRef  ref="error-log" level="off"/>
+		</Root>
+	</Loggers>
+</Configuration>
+
